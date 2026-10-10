@@ -2,24 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Barang;
 
-class DatabaseSeeder extends Seeder
-{
-    use WithoutModelEvents;
+class DatabaseSeeder extends Seeder {
+    public function run(): void {
+        $daftarBarang = [
+            ['nama' => 'Buku Tulis', 'harga' => 5000, 'stok' => 20],
+            ['nama' => 'Pulpen', 'harga' => 3000, 'stok' => 25],
+            ['nama' => 'Penggaris', 'harga' => 4000, 'stok' => 15],
+            ['nama' => 'Pensil 2B', 'harga' => 2500, 'stok' => 30],
+            ['nama' => 'Penghapus', 'harga' => 1500, 'stok' => 10],
+        ];
 
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($daftarBarang as $b) {
+            Barang::create($b);
+        }
     }
 }
