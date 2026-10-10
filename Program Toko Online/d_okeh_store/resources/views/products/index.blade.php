@@ -9,7 +9,7 @@
             <div class="row g-2 align-items-end">
                 <div class="col-md-5">
                     <label class="form-label small fw-semibold">Cari Barang</label>
-                    <input type="text" name="q" class="form-control form-control-sm" placeholder="Contoh: Kaos, Hoodie..." value="{{ request('q') }}">
+                    <input type="text" name="q" class="form-control form-control-sm" placeholder="Contoh: Original, Geprek, Nasi..." value="{{ request('q') }}">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label small fw-semibold">Status Stok</label>
@@ -36,9 +36,13 @@
     @forelse($products as $p)
         <div class="col-6 col-md-4 col-lg-3">
             <div class="card h-100 shadow-sm border-0 position-relative">
-                <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 180px; font-weight: bold; border-top-left-radius: .375rem; border-top-right-radius: .375rem;">
-                    📦 {{ $p->nama_barang }}
-                </div>
+                <!-- Tampilan Foto Produk -->
+                <img src="{{ asset('images/' . $p->gambar) }}" 
+                     class="card-img-top" 
+                     alt="{{ $p->nama_barang }}" 
+                     style="height: 180px; object-fit: cover; border-top-left-radius: .375rem; border-top-right-radius: .375rem;"
+                     onerror="this.onerror=null; this.src='https://placehold.co/300x180?text=Menu+D-Okeh';">
+
                 <div class="card-body d-flex flex-column">
                     <h6 class="card-title fw-bold mb-1">{{ $p->nama_barang }}</h6>
                     <p class="card-text text-muted small flex-grow-1">{{ $p->deskripsi }}</p>
