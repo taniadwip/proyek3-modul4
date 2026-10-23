@@ -26,6 +26,7 @@
                     @if(session()->has('user_id'))
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart.index') }}">Keranjang Belanja</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('orders.index') }}">Riwayat Pesanan</a></li>z
+                        <li class="nav-item"><a class="nav-link" href="{{ route('profile') }}">Profil Saya</a></li>
                     @endif
                 </ul>
                 <div class="d-flex align-items-center gap-3">

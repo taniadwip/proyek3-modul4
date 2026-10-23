@@ -27,11 +27,21 @@ Route::prefix('cart')->group(function () {
     Route::post('/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 });
 
+// Rute Tampilan Profil
+Route::get('/profile', function () {
+    if (!session()->has('user_id')) {
+        return redirect()->route('login');
+    }
+
+    $user = User::find(session('user_id'));
+    return view('profile', compact('user'));
+})->name('profile');
+
+// Rute PATCH Perubahan Role Modul 5
+Route::patch('/admin/users/{user}/role', [RoleController::class, 'update'])
+    ->name('admin.users.role.update');
+
 // Checkout & Riwayat Pesanan (Wajib Login)
 Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/orders', [OrderHistoryController::class, 'index'])->name('orders.index');
 Route::get('/orders/{id}', [OrderHistoryController::class, 'show'])->name('orders.show');
-Route::patch('/admin/users/{user}/role', 
-    [RoleController::class, 'update']) 
-    ->middleware(['auth', 'can:manage-roles']) 
-    ->name('admin.users.role.update');

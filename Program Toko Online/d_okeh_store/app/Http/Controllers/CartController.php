@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;                    
+use Illuminate\Support\Facades\Gate;     
 
 class CartController extends Controller {
     private function checkAuth() {
         if (!session()->has('user_id')) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk mengakses keranjang.');
         }
+
+        $user = \App\Models\User::find(session('user_id'));
+
+        if (!$user || \Illuminate\Support\Facades\Gate::forUser($user)->denies('use-cart')) {
+            abort(403, 'Aksi ini hanya diperbolehkan untuk customer.');
+        }
+
         return null;
     }
 

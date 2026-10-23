@@ -10,6 +10,11 @@ class User extends Authenticatable {
     public $incrementing = false;
     protected $keyType = 'string';
 
+    public function getRouteKeyName()
+    {
+        return 'id_user';
+    }
+
     protected $fillable = [
         'id_user', 'nama_lengkap', 'email', 'username', 'password', 'no_hp', 'alamat'
     ];

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;               
 use App\Models\User;                               
 use App\Http\Requests\ChangeRoleRequest;          
-use App\Services\RoleManagementService;           
+use App\Services\RoleManagementService;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;                          
 class RoleController extends Controller
 {
     public function update(
@@ -14,8 +14,17 @@ class RoleController extends Controller
         User $user,
         RoleManagementService $service
     ): RedirectResponse {
+        // Ambil user login dari session manual
+        $actor = User::find(session('user_id'));
+
+        // Cek apakah yang login adalah admin
+        if (!$actor || $actor->role !== 'admin') {
+            abort(403, 'Hanya admin yang boleh mengubah role.');
+        }
+
         $data = $request->validated();
-        $service->changeRole($request->user(), $user, $data['role']);
-        return back()->with('status', 'Role diperbarui.');
+        $service->changeRole($actor, $user, $data['role']);
+
+        return back()->with('status', 'Role berhasil diperbarui.');
     }
 }
