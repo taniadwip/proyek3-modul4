@@ -25,7 +25,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Katalog Barang</a></li>
                     @if(session()->has('user_id'))
                         <li class="nav-item"><a class="nav-link" href="{{ route('cart.index') }}">Keranjang Belanja</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('orders.index') }}">Riwayat Pesanan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('orders.index') }}">Riwayat Pesanan</a></li>z
                     @endif
                 </ul>
                 <div class="d-flex align-items-center gap-3">

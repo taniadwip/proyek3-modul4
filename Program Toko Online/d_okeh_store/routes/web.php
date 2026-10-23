@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderHistoryController;
+use App\Http\Controllers\RoleController;
+use App\Models\User;
 
 // Katalog Barang (Publik - Boleh Diakses Tanpa Login)
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
@@ -29,3 +31,7 @@ Route::prefix('cart')->group(function () {
 Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/orders', [OrderHistoryController::class, 'index'])->name('orders.index');
 Route::get('/orders/{id}', [OrderHistoryController::class, 'show'])->name('orders.show');
+Route::patch('/admin/users/{user}/role', 
+    [RoleController::class, 'update']) 
+    ->middleware(['auth', 'can:manage-roles']) 
+    ->name('admin.users.role.update');
